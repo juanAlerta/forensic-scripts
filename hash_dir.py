@@ -21,6 +21,7 @@ print(file_hashes)
 # TO-DO 
 # -----------------------------------------------------------
 # Solicitar ruta cuando se ejecuta el script
+# Replicar script en Python ✅
 # Incorporar API VT
 # Automatizar búsqueda en VT
 # -----------------------------------------------------------
