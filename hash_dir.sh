@@ -18,5 +18,4 @@ done
 # -----------------------------------------------------------
 # Solicitar ruta cuando se ejecuta el script
 # Replicar script en Python ✅
-
 # -----------------------------------------------------------
