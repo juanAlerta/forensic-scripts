@@ -14,7 +14,7 @@ def calculate_file_hashes(directory):
 				hashes[f.name] = sha1.hexdigest()
 
 	return hashes
-
+# path actual o path pasado como argumento
 if len(sys.argv) > 1:
 	current_dir = sys.argv[1]
 else:
@@ -25,12 +25,20 @@ for key in file_hashes.keys():
     print(key, ":", file_hashes[key])
 
 
+# ----- 🌐VirusTotal diagnosis -----------------------------------
 
-# 🌐VirusTotal diagnosis
-api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5a5075ee46474e7bee603077cf6"
+def vt_diagnosis(hash):
+	api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5a5075ee46474e7bee603077cf6"
 
-# definir hash_id
-url = "https://www.virustotal.com/api/v3/files/id" #+ hash_id
+	url = "https://www.virustotal.com/api/v3/files/" + hashes()
+	headers = {
+		"accept": "application/json",
+	    "x-apikey": api_key
+	}
+	response = requests.get(url, headers=headers)
+
+	print(response.text)
+
 
 
 
