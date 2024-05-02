@@ -25,7 +25,7 @@ for key in file_hashes.keys():
     print(key, ":", file_hashes[key])
 
 
-# ----- 🌐VirusTotal diagnosis -----------------------------------
+# -----🌐VirusTotal diagnosis -----------------------------------
 
 def vt_diagnosis(hash):
 	api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5a5075ee46474e7bee603077cf6"
