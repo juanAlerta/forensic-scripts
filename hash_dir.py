@@ -3,6 +3,8 @@ import os
 import requests
 import sys
 
+	api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5xxxxxxxxxxxxxxxxxxx"
+
 def calculate_file_hashes(directory):
 	hashes = {}
 
@@ -27,15 +29,17 @@ for key in file_hashes.keys():
 
 # -----🌐VirusTotal diagnosis -----------------------------------
 
-def vt_diagnosis(hash):
-	api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5a5075ee46474e7bee603077cf6"
+def vt_diagnosis(hashes):
 
-	url = "https://www.virustotal.com/api/v3/files/" + hashes()
-	headers = {
-		"accept": "application/json",
-	    "x-apikey": api_key
-	}
-	response = requests.get(url, headers=headers)
+	for h in hashes.values():
+
+
+		url = "https://www.virustotal.com/api/v3/files/" + h
+		headers = {
+			"accept": "application/json",
+		    "x-apikey": api_key
+		}
+		response = requests.get(url, headers=headers)
 
 	print(response.text)
 
