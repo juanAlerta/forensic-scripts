@@ -2,8 +2,9 @@ import hashlib
 import os
 import requests
 import sys
+import json
 
-api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5a5075ee46474e7bee6030"
+api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5a5075ee46474e7bee603077"
 
 if len(sys.argv) > 1:
 	current_dir = sys.argv[1]
