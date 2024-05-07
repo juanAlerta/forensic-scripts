@@ -4,7 +4,7 @@ import requests
 import sys
 import json
 
-api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5a5075ee46474e7bee603077"
+api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5a5075ee46474e7bee603077cf6"
 
 if len(sys.argv) > 1:
 	current_dir = sys.argv[1]
@@ -33,6 +33,9 @@ def vt_diagnosis(hashes):
 		}
 		response = requests.get(url, headers=headers)
 		print(response.text)
+
+# parsear veredicto a partir del json devuelto
+def parser(response):
 
 
 
