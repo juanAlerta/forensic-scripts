@@ -1,5 +1,4 @@
 #!/bin/bash
-
 declare -a hashes
 
 for file in * 
@@ -13,9 +12,3 @@ done
 for i in "${hashes[@]}"; do
 	echo "$i"
 done
-
-# TO-DO 
-# -----------------------------------------------------------
-# Solicitar ruta cuando se ejecuta el script
-# Replicar script en Python ✅
-# -----------------------------------------------------------
