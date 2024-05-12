@@ -38,7 +38,6 @@ def vt_diagnosis(hashes):
 def parser(response):
 
 
-
 file_hashes = calculate_file_hashes(current_dir)
 for key in file_hashes.keys():
     print(key, ":", file_hashes[key])
