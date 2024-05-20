@@ -33,10 +33,14 @@ def vt_diagnosis(hashes):
 		}
 		response = requests.get(url, headers=headers)
 		print(response.text)
+	# return
 
 # parsear veredicto a partir del json devuelto
-# def parser(response):
-
+def parser(response):
+	f = open(response, "r")
+	vote = json.load(f)
+	
+	print(vote["verdict"].text)
 
 
 file_hashes = calculate_file_hashes(current_dir)
@@ -44,6 +48,8 @@ for key in file_hashes.keys():
     print(key, ":", file_hashes[key])
 
 vt_diagnosis(file_hashes)
+
+
 
 
 
