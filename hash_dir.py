@@ -35,7 +35,7 @@ def vt_diagnosis(hashes):
 		print(response.text)
 
 # parsear veredicto a partir del json devuelto
-def parser(response):
+# def parser(response):
 
 
 
