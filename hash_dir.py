@@ -26,23 +26,29 @@ def calculate_file_hashes(directory):
 def vt_diagnosis(hashes):
 
 	for h in hashes.values():
-		url = "https://www.virustotal.com/api/v3/files/" + h
+		url = "https://www.virustotal.com/api/v3/files/" + h + "/votes"
 		headers = {
 			"accept": "application/json",
 		    "x-apikey": api_key
 		}
 		response = requests.get(url, headers=headers)
 		print(response.text)
+	# return
 
 # parsear veredicto a partir del json devuelto
 def parser(response):
-
+	f = open(response, "r")
+	vote = json.load(f)
+	
+	print(vote["verdict"].text)
 
 file_hashes = calculate_file_hashes(current_dir)
 for key in file_hashes.keys():
     print(key, ":", file_hashes[key])
 
 vt_diagnosis(file_hashes)
+
+
 
 
 
