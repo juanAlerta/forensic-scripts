@@ -25,15 +25,20 @@ def calculate_file_hashes(directory):
 
 def vt_diagnosis(hashes):
 
+	responses = {}
+
 	for h in hashes.values():
 		url = "https://www.virustotal.com/api/v3/files/" + h + "/votes"
 		headers = {
 			"accept": "application/json",
 		    "x-apikey": api_key
 		}
-		response = requests.get(url, headers=headers)
-		print(response.text)
-	# return
+		response = requests.get(url, headers=headers)	
+		if response.status_code == 200:
+			hashes.keys()
+			# tengo el valor y quiero una clave dado el valor
+		#print(response.text)
+	return str(response.text)
 
 # parsear veredicto a partir del json devuelto
 def parser(response):
@@ -46,7 +51,7 @@ file_hashes = calculate_file_hashes(current_dir)
 for key in file_hashes.keys():
     print(key, ":", file_hashes[key])
 
-vt_diagnosis(file_hashes)
+print(vt_diagnosis(file_hashes))
 
 
 
