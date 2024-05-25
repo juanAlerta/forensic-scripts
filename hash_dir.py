@@ -3,7 +3,6 @@ import os
 import requests
 import sys
 import json
-from patient import *
 
 api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5a5075ee46474e7bee603077cf6"
 
@@ -44,6 +43,7 @@ def vt_diagnosis(hashes):
 def parser(response):
 	words = response.split()
 	count = words.count("malicious")
+	print()
 	if count > 1:
 		print("malicius 🔴")
 	else: print("harmless 🟢")
