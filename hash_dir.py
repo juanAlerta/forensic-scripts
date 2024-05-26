@@ -2,7 +2,6 @@ import hashlib
 import os
 import requests
 import sys
-import json
 
 api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5a5075ee46474e7bee603077cf6"
 
@@ -45,37 +44,17 @@ def vt_diagnosis(hashes):
 		if response.status_code == 200:
 			parser(response.text, key, h)
 
-		else: print(str(key) + "\t" + str(h) + "\tis a unknown file 🟠")
+		else: print(str(h) + "  " + str(key) + " is an unknown file 🟠")
 
 # parsear veredicto a partir del json devuelto
 def parser(response, key, value):
 	#words = response.split()
 	#n = words.count("malicious")
 	if "malicious" in response:
-		print(str(key) + "\t" + str(value) + "\tis malicius 🔴")
-	else: print(str(key) + "\t" + str(value) + "\tis harmless 🟢")	
-
+		print(str(value) + "  " + str(key) + " is malicius 🔴")
+	else: print(str(value) + "  " + str(key) + " is harmless 🟢")	
 
 
 file_hashes = calculate_file_hashes(current_dir)
-#for key in file_hashes.keys():
-#   print(key, ":", file_hashes[key])
-
 vt_diagnosis(file_hashes)
-
-
-
-
-
-
-
-# TO-DO 
-# -----------------------------------------------------------
-# Solicitar ruta cuando se ejecuta el script ❓
-# Replicar script en Python ✅
-# Incorporar API VT ✅
-# Automatizar búsqueda en VT ✅
-# Sacar API key del código
-# Parsear respuesta de la petición
-# -----------------------------------------------------------
 
