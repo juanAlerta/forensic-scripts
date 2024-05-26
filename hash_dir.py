@@ -11,6 +11,12 @@ if len(sys.argv) > 1:
 else:
 	current_dir = os.getcwd()
 
+def value_from_key(dicc, value):
+	for key, actual_value in dicc.items():
+		if actual_value == value:
+			return key
+	return None
+
 def calculate_file_hashes(directory):
 	hashes = {}
 
@@ -32,28 +38,31 @@ def vt_diagnosis(hashes):
 
 	for h in hashes.values():
 		url = "https://www.virustotal.com/api/v3/files/" + h + "/votes"
-		#key = hashes.keys()[hashes.values().index(h)]
 		response = requests.get(url, headers=headers)	
-		if response.status_code == 200:
-			parser(response.text)
 
-		else: print("is a unknown file 🟠")
+		key = value_from_key(hashes, h)
+
+		if response.status_code == 200:
+			parser(response.text, key, h)
+
+		else: print(str(key) + "\t" + str(h) + "\tis a unknown file 🟠")
 
 # parsear veredicto a partir del json devuelto
-def parser(response):
-	words = response.split()
-	count = words.count("malicious")
-	print()
-	if count > 1:
-		print("malicius 🔴")
-	else: print("harmless 🟢")
-		
+def parser(response, key, value):
+	#words = response.split()
+	#n = words.count("malicious")
+	if "malicious" in response:
+		print(str(key) + "\t" + str(value) + "\tis malicius 🔴")
+	else: print(str(key) + "\t" + str(value) + "\tis harmless 🟢")	
+
+
 
 file_hashes = calculate_file_hashes(current_dir)
-for key in file_hashes.keys():
-    print(key, ":", file_hashes[key])
+#for key in file_hashes.keys():
+#   print(key, ":", file_hashes[key])
 
 vt_diagnosis(file_hashes)
+
 
 
 
