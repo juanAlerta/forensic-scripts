@@ -16,7 +16,7 @@ def value_from_key(dicc, value):
 			return key
 	return None
 
-def calculate_file_hashes(directory):
+def calculate_file_hashes():
 	hashes = {}
 
 	for file in os.listdir(current_dir):
@@ -55,7 +55,7 @@ def parser(response, key, value):
 	else: print(str(value) + "  " + str(key) + " is harmless 🟢")	
 
 
-file_hashes = calculate_file_hashes(current_dir)
+file_hashes = calculate_file_hashes()
 vt_diagnosis(file_hashes)
 
 # ---------------------------------------------------------------------
