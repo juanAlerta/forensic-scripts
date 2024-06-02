@@ -57,9 +57,3 @@ def parser(response, key, value):
 
 file_hashes = calculate_file_hashes()
 vt_diagnosis(file_hashes)
-
-# ---------------------------------------------------------------------
-# TODO
-# - Sacar API key
-# - Arreglar selección de path
-# ---------------------------------------------------------------------
