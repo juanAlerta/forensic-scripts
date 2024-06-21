@@ -1,9 +1,18 @@
+# hash_dir.py -----------------------------------------------------------
+# -----------------------------------------------------------------------
+# This script prints the hashes of the files in the current directory
+# and execute a request to VirusTotal to 
+# obtain a diagnosis of the suspicious file
+# 
+# author: github.com/juanAlerta
+# -----------------------------------------------------------------------
+
 import hashlib
 import os
 import requests
 import sys
 
-api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5a5075ee46474e7bee603077cf6"
+api_key = "your_api_key" # https://www.virustotal.com/gui/user/USER_NAME/apikey
 
 if len(sys.argv) > 1:
 	current_dir = sys.argv[1]
@@ -48,12 +57,10 @@ def vt_diagnosis(hashes):
 
 # parsear veredicto a partir del json devuelto
 def parser(response, key, value):
-	#words = response.split()
-	#n = words.count("malicious")
+
 	if "malicious" in response:
 		print(str(value) + "  " + str(key) + " is malicius 🔴")
 	else: print(str(value) + "  " + str(key) + " is harmless 🟢")	
-
 
 file_hashes = calculate_file_hashes()
 vt_diagnosis(file_hashes)
