@@ -12,7 +12,7 @@ import os
 import requests
 import sys
 
-api_key = "your_api_key" # https://www.virustotal.com/gui/user/USER_NAME/apikey
+api_key = "virustotal_api_key" # https://www.virustotal.com/gui/user/USER_NAME/apikey
 
 if len(sys.argv) > 1:
 	current_dir = sys.argv[1]
