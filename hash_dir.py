@@ -1,60 +1,80 @@
+# hash_dir.py -----------------------------------------------------------
+# -----------------------------------------------------------------------
+# This script prints the hashes of the files in the current directory
+# and execute a request to VirusTotal to 
+# obtain a diagnosis of the suspicious file
+# 
+# author: github.com/juanAlerta
+# -----------------------------------------------------------------------
+#  TO-DO ----------------------------------------------------------------
+# - Sacar API KEY
+# - Meter colorines ✅
+# - Cambiar a SHA256 ✅
+# -----------------------------------------------------------------------
+
 import hashlib
 import os
 import requests
 import sys
-import json
 
-api_key = "63df35d4d960b46bfccc0a9ff630bde361edf5a5075ee46474e7bee603077cf6"
+RED = "\033[91m"
+YELLOW = "\033[93m"
+GREEN = "\033[92m"
+RESET = "\033[0m"
+    
+keywords = {
+    "unknown file": YELLOW,
+    "malicious": RED,
+    "harmless": GREEN,
+}
+
+api_key = "key" # https://www.virustotal.com/gui/user/USER_NAME/apikey
 
 if len(sys.argv) > 1:
-	current_dir = sys.argv[1]
+    current_dir = sys.argv[1]
 else:
-	current_dir = os.getcwd()
+    current_dir = os.getcwd()
 
-def calculate_file_hashes(directory):
-	hashes = {}
+def value_from_key(dicc, value):
+    for key, actual_value in dicc.items():
+        if actual_value == value:
+            return key
+    return None
 
-	for file in os.listdir(current_dir):
-		if os.path.isfile(file):
-			with open(file, 'rb') as f:
-				sha1 = hashlib.sha1()
-				sha1.update(f.read())
-				hashes[f.name] = sha1.hexdigest()
-
-	return hashes
+def calculate_file_hashes():
+    hashes = {}
+    
+    for file in os.listdir(current_dir):
+        if os.path.isfile(file):
+            with open(file, 'rb') as f:
+                sha256 = hashlib.sha256()
+                sha256.update(f.read())
+                hashes[f.name] = sha256.hexdigest()
+    
+    return hashes
 
 def vt_diagnosis(hashes):
+    headers = {
+        "accept": "application/json",
+        "x-apikey": api_key
+    }
+    
+    for h in hashes.values():
+        url = f"https://www.virustotal.com/api/v3/files/{h}/votes"
+        response = requests.get(url, headers=headers) # verify=False    
+        
+        key = value_from_key(hashes, h)
+        
+        if response.status_code == 200:
+            parser(response.text, key, h)
+        else:
+            print(f"{h}  {key} is a {YELLOW}unknown file 😶‍🌫️{RESET}")
 
-	for h in hashes.values():
-		url = "https://www.virustotal.com/api/v3/files/" + h
-		headers = {
-			"accept": "application/json",
-		    "x-apikey": api_key
-		}
-		response = requests.get(url, headers=headers)
-		print(response.text)
+def parser(response, key, value):
+    if "malicious" in response:
+        print(f"{value}  {key} is {RED}malicious 😈{RESET}")
+    else:
+        print(f"{value}  {key} is {GREEN}harmless 😇{RESET}")
 
-# parsear veredicto a partir del json devuelto
-def parser(response):
-
-
-
-file_hashes = calculate_file_hashes(current_dir)
-for key in file_hashes.keys():
-    print(key, ":", file_hashes[key])
-
+file_hashes = calculate_file_hashes()
 vt_diagnosis(file_hashes)
-
-
-
-
-# TO-DO 
-# -----------------------------------------------------------
-# Solicitar ruta cuando se ejecuta el script ❓
-# Replicar script en Python ✅
-# Incorporar API VT ✅
-# Automatizar búsqueda en VT ✅
-# Sacar API key del código
-# Parsear respuesta de la petición
-# -----------------------------------------------------------
-
